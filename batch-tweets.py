@@ -36,10 +36,20 @@ search = config['twits']['search'].split(',')
 
 search = ['hello']
 
+from datetime import datetime
+
+dt_obj = datetime.strptime('20.12.2016 09:38:42,76',
+                           '%d.%m.%Y %H:%M:%S,%f')
+millisec = dt_obj.timestamp() * 1000
+
+print(millisec)
+
 for item in search:
   for tweet in tweepy.Cursor(api.search,q=item,count=1000,
                            lang="en",
                            since="2018-08-27").items():
+    tweet_info = tweet._json.copy()
+    tweet_info['timestamp_ms'] = datetime.strptime(tweet_info['created_at'],'%a %b %m %X %z %Y').timestamp() * 1000
     model = falcon.model_tweet(json.loads(tweet._json), [search])
     if model is not None:
       dobbins.insert_entry(model)
