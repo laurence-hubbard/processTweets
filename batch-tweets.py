@@ -45,7 +45,7 @@ def timestamp(self):
             return (self - _EPOCH).total_seconds()
 
 for item in search:
-  for tweet in tweepy.Cursor(api.search,q=item,count=1000,
+  for tweet in tweepy.Cursor(api.search,q=item,count=1000000,
                            lang="en",
                            since="2018-08-27").items():
     tweet_info = tweet._json.copy()
