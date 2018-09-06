@@ -8,7 +8,7 @@ import configparser
 
 config = configparser.ConfigParser()
 config.read('config.ini')
-
+import sys
 sys.path.append(config['twits']['twits_path'])
 
 from twits.es import ESClient
