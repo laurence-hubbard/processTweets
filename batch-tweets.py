@@ -44,12 +44,20 @@ millisec = dt_obj.timestamp() * 1000
 
 print(millisec)
 
+def timestamp(self):
+        "Return POSIX timestamp as float"
+        if self._tzinfo is None:
+            s = self._mktime()
+            return s + self.microsecond / 1e6
+        else:
+            return (self - _EPOCH).total_seconds()
+
 for item in search:
   for tweet in tweepy.Cursor(api.search,q=item,count=1000,
                            lang="en",
                            since="2018-08-27").items():
     tweet_info = tweet._json.copy()
-    tweet_info['timestamp_ms'] = datetime.strptime(tweet_info['created_at'],'%a %b %m %X %z %Y').timestamp() * 1000
+    tweet_info['timestamp_ms'] = timestamp(datetime.strptime(tweet_info['created_at'],'%a %b %m %X %z %Y')) * 1000
     model = falcon.model_tweet(json.loads(tweet._json), [search])
     if model is not None:
       dobbins.insert_entry(model)
