@@ -34,8 +34,10 @@ csvWriter = csv.writer(csvFile)
 
 search = config['twits']['search'].split(',')
 
+search = ['hello']
+
 for item in search:
-  for tweet in tweepy.Cursor(api.search,q=search,count=1000,
+  for tweet in tweepy.Cursor(api.search,q=item,count=1000,
                            lang="en",
                            since="2018-08-27").items():
     model = falcon.model_tweet(json.loads(tweet._json), [search])
