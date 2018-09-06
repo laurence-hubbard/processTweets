@@ -51,7 +51,7 @@ for item in search:
                            lang="en",
                            since="2018-08-27").items():
     tweet_info = tweet._json.copy()
-    tweet_info['timestamp_ms'] = timestamp(datetime.strptime(tweet_info['created_at'],'%a %b %m %X %z %Y')) * 1000
+    tweet_info['timestamp_ms'] = timestamp(datetime.strptime(tweet_info['created_at'],'%a %b %m %X +0000 %Y')) * 1000
     model = falcon.model_tweet(json.loads(tweet._json), [search])
     if model is not None:
       dobbins.insert_entry(model)
