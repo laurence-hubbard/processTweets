@@ -55,4 +55,5 @@ for item in search:
     tweet_info['timestamp_ms'] = (datetime.strptime(tweet_info['created_at'],'%a %b %m %X +0000 %Y')-datetime(1970,1,1)).total_seconds()
     model = falcon.model_tweet(tweet_info, search)
     if model is not None:
+      print(model)
       dobbins.insert_entry(model)
