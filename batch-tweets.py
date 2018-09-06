@@ -34,8 +34,6 @@ csvWriter = csv.writer(csvFile)
 
 search = config['twits']['search'].split(',')
 
-search = ['hello']
-
 from datetime import datetime
 
 def timestamp(self):
