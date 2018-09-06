@@ -50,7 +50,7 @@ for item in search:
                            since="2018-08-27").items():
     tweet_info = tweet._json.copy()
 #    tweet_info['timestamp_ms'] = timestamp(datetime.strptime(tweet_info['created_at'],'%a %b %m %X +0000 %Y')) * 1000
-    tweet_info['timestamp_ms'] = (datetime.strptime(tweet_info['created_at'].replace('+0000 ',''),'%a %b %d %X %Y')-datetime(1970,1,1)).total_seconds()
+    tweet_info['timestamp_ms'] = (datetime.strptime(tweet_info['created_at'].replace('+0000 ',''),'%a %b %d %X %Y')-datetime(1970,1,1)).total_seconds() * 1000
     model = falcon.model_tweet(tweet_info, search)
     if model is not None:
       print(model)
