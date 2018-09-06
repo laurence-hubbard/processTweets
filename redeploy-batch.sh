@@ -1,7 +1,7 @@
 #! /bin/bash
 
-if [ -f running.pid ]; then
-  kill -9 "$(cat running.pid)"
+if [ -f running-batch.pid ]; then
+  kill -9 "$(cat running-batch.pid)"
 fi
 python batch-tweets.py 1> nohup.out 2> nohup.err &
-echo $! > running.pid
+echo $! > running-batch.pid
