@@ -9,6 +9,8 @@ import configparser
 config = configparser.ConfigParser()
 config.read('config.ini')
 
+sys.path.append(config['twits']['twits_path'])
+
 from twits.es import ESClient
 from twits.modeller import Modeller
 
@@ -33,9 +35,9 @@ csvWriter = csv.writer(csvFile)
 search = config['twits']['search'].split(',')
 
 for item in search:
-  for tweet in tweepy.Cursor(api.search,q=search,count=100,
+  for tweet in tweepy.Cursor(api.search,q=search,count=1000,
                            lang="en",
-                           since="2017-04-03").items():
+                           since="2018-08-27").items():
     model = falcon.model_tweet(json.loads(tweet._json), [search])
     if model is not None:
       dobbins.insert_entry(model)
